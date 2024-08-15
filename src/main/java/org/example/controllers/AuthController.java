@@ -32,22 +32,21 @@ import java.sql.SQLException;
 )
 public class AuthController {
 
-    AuthService authService;
+    private final AuthService authService;
 
-    public AuthController(AuthService authService) {
+    public AuthController(final AuthService authService) {
         this.authService = authService;
     }
 
     @POST
     @Path("/login")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response login(LoginRequest loginRequest) {
+    public Response login(final LoginRequest loginRequest) {
 
         try {
             return Response.ok().entity(authService.login(loginRequest))
                     .build();
         } catch (SQLException e) {
-
             return Response.serverError().build();
         } catch (InvalidException e) {
             return Response.status(Response.Status.BAD_REQUEST)
@@ -58,12 +57,13 @@ public class AuthController {
     @POST
     @Path("/register")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response register(RegisterRequest registerRequest) {
+    public Response register(final RegisterRequest registerRequest) {
         try {
             authService.register(registerRequest);
             return Response.ok().build();
         } catch (InvalidException e) {
-            return Response.status(Response.Status.BAD_REQUEST).entity(e.getMessage()).build();
+            return Response.status(Response.Status.BAD_REQUEST)
+                    .entity(e.getMessage()).build();
         } catch (SQLException e) {
             return Response.serverError().build();
         }

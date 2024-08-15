@@ -12,7 +12,8 @@ import java.sql.SQLException;
 
 public class AuthDao {
 
-    public User getUser(LoginRequest loginRequest) throws SQLException {
+    public static final int THREE = 3;
+    public User getUser(final LoginRequest loginRequest) throws SQLException {
         try (Connection connection = DatabaseConnector.getConnection()) {
             String query = "SELECT Username, Password, RoleID FROM `User`"
                     + " WHERE Username = ? and Password = ?;";
@@ -23,7 +24,7 @@ public class AuthDao {
 
             ResultSet resultSet = statement.executeQuery();
 
-            while ( resultSet.next()){
+            while (resultSet.next()) {
                 return new User(
                         resultSet.getString("Username"),
                         resultSet.getString("Password"),
@@ -34,14 +35,17 @@ public class AuthDao {
         return null;
     }
 
-    public void register(RegisterRequest registerRequest) throws SQLException {
+    public void register(final RegisterRequest registerRequest)
+            throws SQLException {
         try (Connection connection = DatabaseConnector.getConnection()) {
-            String query = "INSERT INTO `User` (Username, Password, RoleId) VALUES (?, ?, ?);";
+            String query =
+                    "INSERT INTO `User` (Username, Password, RoleId)"
+                            + " VALUES (?, ?, ?);";
             PreparedStatement statement = connection.prepareStatement(query);
 
-            statement.setString(1,registerRequest.getUsername());
-            statement.setString(2,registerRequest.getPassword());
-            statement.setInt(3,1);
+            statement.setString(1, registerRequest.getUsername());
+            statement.setString(2, registerRequest.getPassword());
+            statement.setInt(THREE, 1);
 
             statement.executeUpdate();
         }

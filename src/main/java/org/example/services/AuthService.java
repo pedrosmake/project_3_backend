@@ -16,18 +16,20 @@ import java.util.Date;
 
 public class AuthService {
 
-    private final static int JWT_EXPIRATION_MILLIS = 28_800_000;
+    private static final int JWT_EXPIRATION_MILLIS = 28_800_000;
     private final AuthDao authDao;
     private final RegisterValidator registerValidator;
     private final Key key;
 
-    public AuthService(AuthDao authDao, RegisterValidator registerValidator, Key key) {
+    public AuthService(final AuthDao authDao,
+                       final RegisterValidator registerValidator,
+                       final Key key) {
         this.authDao = authDao;
         this.registerValidator = registerValidator;
         this.key = key;
     }
 
-    public String login(LoginRequest loginRequest)
+    public String login(final LoginRequest loginRequest)
             throws SQLException, InvalidException {
         User user = authDao.getUser(loginRequest);
 
@@ -38,7 +40,7 @@ public class AuthService {
         return generateJwtToken(user);
     }
 
-    private String generateJwtToken(User user) {
+    private String generateJwtToken(final User user) {
         long currentTimeMillis = System.currentTimeMillis();
         return Jwts.builder()
                 .issuedAt(new Date(currentTimeMillis))
@@ -50,7 +52,7 @@ public class AuthService {
                 .compact();
     }
 
-    public void register(RegisterRequest registerRequest)
+    public void register(final RegisterRequest registerRequest)
             throws InvalidException, SQLException {
         registerValidator.validate(registerRequest);
         authDao.register(registerRequest);

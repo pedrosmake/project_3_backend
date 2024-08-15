@@ -9,9 +9,10 @@ public class RegisterRequest {
     private String repeatPassword;
 
     @JsonCreator
-    public RegisterRequest(@JsonProperty("username") String username,
-                           @JsonProperty("password") String password,
-                           @JsonProperty("repeatPassword") String repeatPassword) {
+    public RegisterRequest(final @JsonProperty("username") String username,
+                           final @JsonProperty("password") String password,
+                           final @JsonProperty("repeatPassword")
+                           String repeatPassword) {
         this.username = username;
         this.password = password;
         this.repeatPassword = repeatPassword;
@@ -21,7 +22,7 @@ public class RegisterRequest {
         return username;
     }
 
-    public void setUsername(String username) {
+    public void setUsername(final String username) {
         this.username = username;
     }
 
@@ -29,7 +30,7 @@ public class RegisterRequest {
         return password;
     }
 
-    public void setPassword(String password) {
+    public void setPassword(final String password) {
         this.password = password;
     }
 
@@ -37,7 +38,7 @@ public class RegisterRequest {
         return repeatPassword;
     }
 
-    public void setRepeatPassword(String repeatPassword) {
+    public void setRepeatPassword(final String repeatPassword) {
         this.repeatPassword = repeatPassword;
     }
 }

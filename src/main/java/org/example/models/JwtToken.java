@@ -5,9 +5,9 @@ import java.security.Principal;
 
 public class JwtToken implements Principal {
 
-    UserRole userRole;
+    private UserRole userRole;
 
-    public JwtToken(UserRole userRole) {
+    public JwtToken(final UserRole userRole) {
         setUserRole(userRole);
     }
 
@@ -17,7 +17,7 @@ public class JwtToken implements Principal {
     }
 
     @Override
-    public boolean implies(Subject subject) {
+    public boolean implies(final Subject subject) {
         return Principal.super.implies(subject);
     }
 
@@ -25,7 +25,7 @@ public class JwtToken implements Principal {
         return userRole;
     }
 
-    public void setUserRole(UserRole userRole) {
+    public void setUserRole(final UserRole userRole) {
         this.userRole = userRole;
     }
 }

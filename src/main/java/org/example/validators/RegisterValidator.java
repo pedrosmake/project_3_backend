@@ -7,10 +7,12 @@ import org.example.exceptions.Entity;
 
 public class RegisterValidator {
 
-    public void validate(RegisterRequest registerRequest)
+    public void validate(final RegisterRequest registerRequest)
             throws InvalidException {
-        if(!registerRequest.getPassword().equals(registerRequest.getRepeatPassword())){
-            throw new InvalidException(Entity.REGISTER_PASSWORD, " passwords must be the same");
+        if (!registerRequest.getPassword()
+                .equals(registerRequest.getRepeatPassword())) {
+            throw new InvalidException(Entity.REGISTER_PASSWORD,
+                    " passwords must be the same");
         }
     }
 
