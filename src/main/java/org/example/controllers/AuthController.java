@@ -4,6 +4,8 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiKeyAuthDefinition;
 import io.swagger.annotations.SecurityDefinition;
 import io.swagger.annotations.SwaggerDefinition;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.example.services.AuthService;
 import org.example.models.LoginRequest;
 import org.example.models.RegisterRequest;
@@ -33,9 +35,11 @@ import java.sql.SQLException;
 public class AuthController {
 
     private final AuthService authService;
+    private static final Logger LOGGER = LogManager.getLogger();
 
     public AuthController(final AuthService authService) {
         this.authService = authService;
+        LOGGER.info("AuthController initialized");
     }
 
     @POST
@@ -44,13 +48,16 @@ public class AuthController {
     public Response login(final LoginRequest loginRequest) {
 
         try {
+            LOGGER.info("Login request received");
             return Response.ok().entity(authService.login(loginRequest))
                     .build();
         } catch (SQLException e) {
-            e.printStackTrace();
+            LOGGER.error("Login SQL exception");
+            LOGGER.error(e.getMessage());
             return Response.serverError().build();
         } catch (InvalidException e) {
-            e.printStackTrace();
+            LOGGER.error("Login InvalidException");
+            LOGGER.error(e.getMessage());
             return Response.status(Response.Status.BAD_REQUEST)
                     .entity(e.getMessage()).build();
         }
@@ -61,12 +68,17 @@ public class AuthController {
     @Produces(MediaType.APPLICATION_JSON)
     public Response register(final RegisterRequest registerRequest) {
         try {
+            LOGGER.info("Register request received");
             authService.register(registerRequest);
             return Response.ok().build();
         } catch (InvalidException e) {
+            LOGGER.error("Register InvalidException");
+            LOGGER.error(e.getMessage());
             return Response.status(Response.Status.BAD_REQUEST)
                     .entity(e.getMessage()).build();
         } catch (SQLException e) {
+            LOGGER.error("Register SQL exception");
+            LOGGER.error(e.getMessage());
             return Response.serverError().build();
         }
     }
