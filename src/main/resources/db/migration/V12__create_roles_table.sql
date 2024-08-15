@@ -1,0 +1,5 @@
+CREATE TABLE `AuthRole` (
+	RoleID TINYINT NOT NULL,
+    Name VARCHAR(64) NOT NULL,
+    PRIMARY KEY (RoleID)
+);
