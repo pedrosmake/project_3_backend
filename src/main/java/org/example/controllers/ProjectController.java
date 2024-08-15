@@ -6,6 +6,7 @@ import org.example.models.ProjectRequest;
 import org.example.models.ProjectStatusRequest;
 import org.example.services.ProjectService;
 
+import javax.ws.rs.DELETE;
 import javax.ws.rs.POST;
 import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
@@ -45,7 +46,7 @@ public class ProjectController {
     }
 
     @PUT
-    @Path("/{id}/change-status")
+    @Path("/{id}/status")
     @Produces(MediaType.APPLICATION_JSON)
     public Response updateProject(final @PathParam("id") int id,
                                   final ProjectStatusRequest status) {
@@ -57,8 +58,8 @@ public class ProjectController {
         }
     }
 
-    @PUT
-    @Path("/{projectID}/remove-employee/{employeeID}")
+    @DELETE
+    @Path("/{projectID}/employee/{employeeID}")
     @Produces(MediaType.APPLICATION_JSON)
     public Response removeEmployee(
             final @PathParam("projectID") int projectID,
@@ -72,7 +73,7 @@ public class ProjectController {
     }
 
     @PUT
-    @Path("/{projectID}/add-employees")
+    @Path("/{projectID}/employees")
     @Produces(MediaType.APPLICATION_JSON)
     public Response addEmployee(
             final @PathParam("projectID") int projectID,
