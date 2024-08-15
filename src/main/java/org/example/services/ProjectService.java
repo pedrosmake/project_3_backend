@@ -1,6 +1,8 @@
 package org.example.services;
 
 import org.example.daos.ProjectDao;
+import org.example.exceptions.DoesNotExistException;
+import org.example.exceptions.Entity;
 import org.example.models.Employee;
 import org.example.models.Project;
 import org.example.models.ProjectRequest;
@@ -59,5 +61,14 @@ public class ProjectService {
 //        }
         projectDao.addEmplyee(employeeList, projectID);
 
+    }
+
+    public Project getProductById(int productId)
+            throws SQLException, DoesNotExistException {
+        Project project = projectDao.getProjectByID(productId);
+        if (project == null){
+            throw new DoesNotExistException(Entity.PROJECT);
+        }
+        return project;
     }
 }
