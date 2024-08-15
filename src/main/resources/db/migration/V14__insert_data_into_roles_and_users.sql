@@ -1,0 +1,2 @@
+INSERT INTO AuthRole(RoleID, Name) VALUES (1,'HR') , (2,'Management'), (3,'Sales');
+INSERT INTO `User` (Username, Password, RoleID) VALUES ('hr', 'hr', 1), ('management', 'management', 2), ('sales', 'sales', 3);

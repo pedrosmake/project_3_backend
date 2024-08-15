@@ -42,6 +42,7 @@ public class EmployeeController {
                             createEmployee(employeeRequest)).build();
         } catch (SQLException e) {
             logger1.error("createDeliveryEmployee request SQL failed");
+
             return Response.serverError().build();
         } catch (InvalidException e) {
             logger1.error("createDeliveryEmployee request Invalid Exception");
