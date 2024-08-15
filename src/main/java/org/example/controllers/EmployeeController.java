@@ -1,6 +1,8 @@
 package org.example.controllers;
 
 import io.swagger.annotations.Api;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.example.exceptions.FailedToCreateException;
 import org.example.exceptions.InvalidException;
 import org.example.models.EmployeeRequest;
@@ -19,10 +21,13 @@ import java.sql.SQLException;
 @Path("/api/employees")
 public class EmployeeController {
 
+    private static final Logger logger = LogManager.getLogger();
+
     EmployeeService employeeService;
 
     public EmployeeController(final EmployeeService employeeService) {
         this.employeeService = employeeService;
+        logger.info("Employee controller initialized");
     }
 
     @POST
@@ -30,14 +35,16 @@ public class EmployeeController {
     @Produces(MediaType.APPLICATION_JSON)
     public Response createDeliveryEmployee(
             final EmployeeRequest employeeRequest) {
-
+        logger.info("createDeliveryEmployee request received");
         try {
             return Response.ok().
                     entity(employeeService.
                             createEmployee(employeeRequest)).build();
         } catch (SQLException e) {
+            logger.error("createDeliveryEmployee request SQL failed");
             return Response.serverError().build();
         } catch (InvalidException e) {
+            logger.error("createDeliveryEmployee request Invalid Exception");
             return Response.status(Response.Status.BAD_REQUEST).
                     entity(e.getMessage()).build();
         }
@@ -48,14 +55,16 @@ public class EmployeeController {
     @Produces(MediaType.APPLICATION_JSON)
     public Response createSalesEmployee(
             final SalesEmployeeRequest salesEmployeeRequest) {
-
+        logger.info("createSalesEmployee request received");
         try {
             return Response.ok().
                     entity(employeeService.
                             createEmployee(salesEmployeeRequest)).build();
         } catch (SQLException | FailedToCreateException e) {
+            logger.error("createSalesEmployee SQL failed to create");
             return Response.serverError().build();
         } catch (InvalidException e) {
+            logger.error("crateSalesEmployee request Invalid exception");
             return Response.status(Response.Status.BAD_REQUEST).
                     entity(e.getMessage()).build();
         }
@@ -65,10 +74,12 @@ public class EmployeeController {
     @Path("/delivery")
     @Produces(MediaType.APPLICATION_JSON)
     public Response getAllEmployees() {
+        logger.info("getAllEmployees request received");
         try {
             return Response.ok().
                     entity(employeeService.getAllEmployees()).build();
         } catch (SQLException e) {
+            logger.error("getAllEmployees request SQL failed");
             return Response.serverError().build();
         }
     }
@@ -77,10 +88,12 @@ public class EmployeeController {
     @Path("/sales")
     @Produces(MediaType.APPLICATION_JSON)
     public Response getAllSalesEmployees() {
+        logger.info("getAllSalesEmployees request received");
         try {
             return Response.ok().
                     entity(employeeService.getAllSalesEmployees()).build();
         } catch (SQLException e) {
+            logger.error("getAllSalesEmployees request SQL failed");
             return Response.serverError().build();
         }
     }
