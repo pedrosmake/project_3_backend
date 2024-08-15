@@ -63,10 +63,10 @@ public class ProjectService {
 
     }
 
-    public Project getProductById(int productId)
+    public Project getProductById(final int productId)
             throws SQLException, DoesNotExistException {
         Project project = projectDao.getProjectByID(productId);
-        if (project == null){
+        if (project == null) {
             throw new DoesNotExistException(Entity.PROJECT);
         }
         return project;
