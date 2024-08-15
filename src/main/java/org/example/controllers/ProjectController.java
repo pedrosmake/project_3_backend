@@ -1,11 +1,14 @@
 package org.example.controllers;
 
 import io.swagger.annotations.Api;
+import org.example.exceptions.DoesNotExistException;
 import org.example.models.Employee;
 import org.example.models.ProjectRequest;
 import org.example.models.ProjectStatusRequest;
 import org.example.services.ProjectService;
 
+
+import javax.ws.rs.GET;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.POST;
 import javax.ws.rs.PUT;
@@ -24,6 +27,22 @@ public class ProjectController {
 
     public ProjectController(final ProjectService projectService) {
         this.projectService = projectService;
+    }
+
+    @GET
+    @Path("/{productId}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response getProjectById(
+            @PathParam("productId") final int productId) {
+        try {
+            return Response.ok()
+                    .entity(projectService.getProductById(productId)).build();
+        } catch (SQLException e) {
+            return Response.serverError().build();
+        } catch (DoesNotExistException e) {
+            return Response.status(Response.Status.NOT_FOUND)
+                    .entity(e.getMessage()).build();
+        }
     }
 
     @POST

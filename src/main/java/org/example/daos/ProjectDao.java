@@ -49,8 +49,8 @@ public class ProjectDao {
 
         String insertStatement =
                 "INSERT INTO Project "
-                + "(name, value, status, client_id, techlead_id)"
-                + " VALUES (?,?,?,?,?)";
+                        + "(name, value, status, client_id, techlead_id)"
+                        + " VALUES (?,?,?,?,?)";
 
         PreparedStatement st = c.prepareStatement(insertStatement,
                 Statement.RETURN_GENERATED_KEYS);
@@ -108,8 +108,8 @@ public class ProjectDao {
         for (Employee employee : employeeList) {
             String updateEmployeeList =
                     "INSERT INTO Project_Employee "
-                    + "(project_id, employee_id, start_date)"
-                    + " VALUES (?, ?, ?)";
+                            + "(project_id, employee_id, start_date)"
+                            + " VALUES (?, ?, ?)";
 
             PreparedStatement st = c.prepareStatement(updateEmployeeList);
 
