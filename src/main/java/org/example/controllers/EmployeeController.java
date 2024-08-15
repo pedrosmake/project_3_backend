@@ -36,6 +36,7 @@ public class EmployeeController {
                     entity(employeeService.
                             createEmployee(employeeRequest)).build();
         } catch (SQLException e) {
+            e.printStackTrace();
             return Response.serverError().build();
         } catch (InvalidException e) {
             return Response.status(Response.Status.BAD_REQUEST).
@@ -69,6 +70,7 @@ public class EmployeeController {
             return Response.ok().
                     entity(employeeService.getAllEmployees()).build();
         } catch (SQLException e) {
+            e.printStackTrace();
             return Response.serverError().build();
         }
     }
