@@ -46,9 +46,11 @@ public class ProjectController {
                     .entity(projectService.getProductById(productId)).build();
         } catch (SQLException e) {
             LOGGER.error("getProjectById request SQL failed");
+            LOGGER.error(e.getMessage());
             return Response.serverError().build();
         } catch (DoesNotExistException e) {
             LOGGER.error("GetProjectById DoesNotExistException");
+            LOGGER.error(e.getMessage());
             return Response.status(Response.Status.NOT_FOUND)
                     .entity(e.getMessage()).build();
         }
@@ -66,6 +68,7 @@ public class ProjectController {
 
         } catch (SQLException e) {
             LOGGER.error("createProject request SQL Failed");
+            LOGGER.error(e.getMessage());
             return Response.serverError().build();
 
         }
@@ -86,6 +89,7 @@ public class ProjectController {
             return Response.noContent().build();
         }  catch (SQLException e) {
             LOGGER.error("updateProject request SQL failed");
+            LOGGER.error(e.getMessage());
             return Response.serverError().build();
         }
     }
@@ -102,6 +106,7 @@ public class ProjectController {
             return Response.noContent().build();
         } catch (SQLException e) {
             LOGGER.error("removeEmployee request SQL failed");
+            LOGGER.error(e.getMessage());
             return Response.serverError().build();
         }
     }
@@ -118,6 +123,7 @@ public class ProjectController {
             return Response.noContent().build();
         } catch (SQLException e) {
             LOGGER.error("addEmployee request SQL failed");
+            LOGGER.error(e.getMessage());
             return Response.serverError().build();
         }
     }

@@ -42,9 +42,11 @@ public class EmployeeController {
                             createEmployee(employeeRequest)).build();
         } catch (SQLException e) {
             LOGGER.error("createDeliveryEmployee request SQL failed");
+            LOGGER.error(e.getMessage());
             return Response.serverError().build();
         } catch (InvalidException e) {
             LOGGER.error("createDeliveryEmployee request Invalid Exception");
+            LOGGER.error(e.getMessage());
             return Response.status(Response.Status.BAD_REQUEST).
                     entity(e.getMessage()).build();
         }
@@ -62,9 +64,11 @@ public class EmployeeController {
                             createEmployee(salesEmployeeRequest)).build();
         } catch (SQLException | FailedToCreateException e) {
             LOGGER.error("createSalesEmployee SQL failed to create");
+            LOGGER.error(e.getMessage());
             return Response.serverError().build();
         } catch (InvalidException e) {
             LOGGER.error("crateSalesEmployee request Invalid exception");
+            LOGGER.error(e.getMessage());
             return Response.status(Response.Status.BAD_REQUEST).
                     entity(e.getMessage()).build();
         }
@@ -80,6 +84,7 @@ public class EmployeeController {
                     entity(employeeService.getAllEmployees()).build();
         } catch (SQLException e) {
             LOGGER.error("getAllEmployees request SQL failed");
+            LOGGER.error(e.getMessage());
             return Response.serverError().build();
         }
     }
@@ -94,6 +99,7 @@ public class EmployeeController {
                     entity(employeeService.getAllSalesEmployees()).build();
         } catch (SQLException e) {
             LOGGER.error("getAllSalesEmployees request SQL failed");
+            LOGGER.error(e.getMessage());
             return Response.serverError().build();
         }
     }

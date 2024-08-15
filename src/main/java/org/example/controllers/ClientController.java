@@ -34,6 +34,7 @@ public class ClientController {
             return Response.ok().entity(clientService.getAllClients()).build();
         } catch (SQLException e) {
             LOGGER.error("Get clients SQL failed");
+            LOGGER.error(e.getMessage());
             return Response.serverError().build();
         }
     }
@@ -47,6 +48,7 @@ public class ClientController {
             return Response.ok().entity(clientService.getTopClient()).build();
         } catch (SQLException e) {
             LOGGER.error("Top client request SQL failed");
+            LOGGER.error(e.getMessage());
             return Response.serverError().build();
         }
     }
