@@ -21,13 +21,13 @@ import java.sql.SQLException;
 @Path("/api/employees")
 public class EmployeeController {
 
-    private static final Logger logger1 = LogManager.getLogger();
+    private static final Logger LOGGER = LogManager.getLogger();
 
     EmployeeService employeeService;
 
     public EmployeeController(final EmployeeService employeeService) {
         this.employeeService = employeeService;
-        logger1.info("Employee controller initialized");
+        LOGGER.info("Employee controller initialized");
     }
 
     @POST
@@ -35,17 +35,16 @@ public class EmployeeController {
     @Produces(MediaType.APPLICATION_JSON)
     public Response createDeliveryEmployee(
             final EmployeeRequest employeeRequest) {
-        logger1.info("createDeliveryEmployee request received");
+        LOGGER.info("createDeliveryEmployee request received");
         try {
             return Response.ok().
                     entity(employeeService.
                             createEmployee(employeeRequest)).build();
         } catch (SQLException e) {
-            logger1.error("createDeliveryEmployee request SQL failed");
-
+            LOGGER.error("createDeliveryEmployee request SQL failed");
             return Response.serverError().build();
         } catch (InvalidException e) {
-            logger1.error("createDeliveryEmployee request Invalid Exception");
+            LOGGER.error("createDeliveryEmployee request Invalid Exception");
             return Response.status(Response.Status.BAD_REQUEST).
                     entity(e.getMessage()).build();
         }
@@ -56,16 +55,16 @@ public class EmployeeController {
     @Produces(MediaType.APPLICATION_JSON)
     public Response createSalesEmployee(
             final SalesEmployeeRequest salesEmployeeRequest) {
-        logger1.info("createSalesEmployee request received");
+        LOGGER.info("createSalesEmployee request received");
         try {
             return Response.ok().
                     entity(employeeService.
                             createEmployee(salesEmployeeRequest)).build();
         } catch (SQLException | FailedToCreateException e) {
-            logger1.error("createSalesEmployee SQL failed to create");
+            LOGGER.error("createSalesEmployee SQL failed to create");
             return Response.serverError().build();
         } catch (InvalidException e) {
-            logger1.error("crateSalesEmployee request Invalid exception");
+            LOGGER.error("crateSalesEmployee request Invalid exception");
             return Response.status(Response.Status.BAD_REQUEST).
                     entity(e.getMessage()).build();
         }
@@ -75,12 +74,12 @@ public class EmployeeController {
     @Path("/delivery")
     @Produces(MediaType.APPLICATION_JSON)
     public Response getAllEmployees() {
-        logger1.info("getAllEmployees request received");
+        LOGGER.info("getAllEmployees request received");
         try {
             return Response.ok().
                     entity(employeeService.getAllEmployees()).build();
         } catch (SQLException e) {
-            logger1.error("getAllEmployees request SQL failed");
+            LOGGER.error("getAllEmployees request SQL failed");
             return Response.serverError().build();
         }
     }
@@ -89,12 +88,12 @@ public class EmployeeController {
     @Path("/sales")
     @Produces(MediaType.APPLICATION_JSON)
     public Response getAllSalesEmployees() {
-        logger1.info("getAllSalesEmployees request received");
+        LOGGER.info("getAllSalesEmployees request received");
         try {
             return Response.ok().
                     entity(employeeService.getAllSalesEmployees()).build();
         } catch (SQLException e) {
-            logger1.error("getAllSalesEmployees request SQL failed");
+            LOGGER.error("getAllSalesEmployees request SQL failed");
             return Response.serverError().build();
         }
     }

@@ -17,23 +17,23 @@ import java.sql.SQLException;
 @Path("/api/clients")
 public class ClientController {
 
-    private static final Logger logger1 = LogManager.getLogger();
+    private static final Logger LOGGER = LogManager.getLogger();
 
     ClientService clientService;
 
     public ClientController(final ClientService clientService) {
         this.clientService = clientService;
-        logger1.info("ClientController initialized");
+        LOGGER.info("ClientController initialized");
     }
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     public Response getClients() {
-        logger1.info("Get clients request received");
+        LOGGER.info("Get clients request received");
         try {
             return Response.ok().entity(clientService.getAllClients()).build();
         } catch (SQLException e) {
-            logger1.error("Get clients SQL failed");
+            LOGGER.error("Get clients SQL failed");
             return Response.serverError().build();
         }
     }
@@ -42,11 +42,11 @@ public class ClientController {
     @Path("/top")
     @Produces(MediaType.APPLICATION_JSON)
     public Response topClient() {
-        logger1.info("Get top client request received");
+        LOGGER.info("Get top client request received");
         try {
             return Response.ok().entity(clientService.getTopClient()).build();
         } catch (SQLException e) {
-            logger1.error("Top client request SQL failed");
+            LOGGER.error("Top client request SQL failed");
             return Response.serverError().build();
         }
     }

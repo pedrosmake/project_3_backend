@@ -16,22 +16,22 @@ import java.sql.SQLException;
 @Path("/api/test")
 public class TestController {
 
-    private static final Logger logger1 = LogManager.getLogger();
+    private static final Logger LOGGER = LogManager.getLogger();
 
     TestService testService;
 
     public TestController(final TestService testService) {
         this.testService = testService;
-        logger1.info("TestController initialized");
+        LOGGER.info("TestController initialized");
     }
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     public Response testConnection() {
-        logger1.info("testConnection request received");
+        LOGGER.info("testConnection request received");
         try {
             return Response.ok().entity(testService.testConnection()).build();
         } catch (SQLException e) {
-            logger1.error("testConnection SQL failed");
+            LOGGER.error("testConnection SQL failed");
             return Response.serverError().build();
         }
     }
