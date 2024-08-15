@@ -47,8 +47,10 @@ public class AuthController {
             return Response.ok().entity(authService.login(loginRequest))
                     .build();
         } catch (SQLException e) {
+            e.printStackTrace();
             return Response.serverError().build();
         } catch (InvalidException e) {
+            e.printStackTrace();
             return Response.status(Response.Status.BAD_REQUEST)
                     .entity(e.getMessage()).build();
         }
