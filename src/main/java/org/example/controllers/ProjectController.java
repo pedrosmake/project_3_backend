@@ -32,7 +32,8 @@ public class ProjectController {
     @GET
     @Path("/{productId}")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response getProjectById(@PathParam("productId") final int productId) {
+    public Response getProjectById(
+            @PathParam("productId") final int productId) {
         try {
             return Response.ok()
                     .entity(projectService.getProductById(productId)).build();
